@@ -1,0 +1,53 @@
+ChangeLog
+ios
+Shazron Abdullah (6):
+      Implemented CB-857 - Add deprecation notice if user is running iOS lesser than 4.2
+      Fixed CB-506 - images taken via Camera.getPicture do not get deleted
+      Fixes CB-885 - Crash when sliding the notification tray and/or tel link confirm dialog
+      Added 1.8.1 cordova-js
+      Updated VERSION to 1.8.1
+      Updated Release Notes for 1.8.1
+
+blackberry
+Tim Kim (1):
+      1.8.1
+
+android
+Joe Bowser (2):
+      Updating the JS and the version for tagging
+      Incrementing version for tagging
+
+Steven Gill (1):
+      updated NOTICE file
+
+macdonst (1):
+      Changing all tabs to spaces
+
+windows-phone
+Jesse MacFadyen (2):
+      1.8.1 packaging
+      removed DLL
+
+webos
+Herm Wong (1):
+      CB-897 update webos apache headers / license headers
+
+Steven Gill (1):
+      updated Notice file
+
+hermwong (3):
+      CB-899 use org.apache.cordova namespace
+      CB-899 use org.apache.cordova namespace
+      update to version 1.8.1
+
+bada
+Anis Kadri (2):
+      CB-900 using org.apache.cordova namespace
+      updating version to 1.8.1
+
+badaWac
+Anis Kadri (3):
+      updating cordova.js with overriden objects
+      rocking with the latest cordovajs
+      updating VERSION file to 1.8.1
+
