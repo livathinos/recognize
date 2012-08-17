@@ -32,7 +32,11 @@
             <small>
                 <select><optgroup label="English" value="en">
 <option value="edge">edge</option>
-<option selected value="1.8.1">1.8.1</option>
+<option value="2.0.0rc1">2.0.0rc1</option>
+<option selected value="2.0.0">2.0.0</option>
+<option value="1.9.0rc1">1.9.0rc1</option>
+<option value="1.9.0">1.9.0</option>
+<option value="1.8.1">1.8.1</option>
 <option value="1.8.0rc1">1.8.0rc1</option>
 <option value="1.8.0">1.8.0</option>
 <option value="1.7.0rc1">1.7.0rc1</option>
@@ -65,7 +69,11 @@
 <option value="1.2.0">1.2.0</option>
 <option value="1.1.0">1.1.0</option>
 </optgroup>
-<optgroup label="Japanese" value="jp"><option value="0.9.5">0.9.5</option></optgroup></select></small>
+<optgroup label="Japanese" value="jp">
+<option value="1.8.1">1.8.1</option>
+<option value="1.7.0">1.7.0</option>
+<option value="0.9.5">0.9.5</option>
+</optgroup></select></small>
         </div>
         <div id="subheader">
             <h1>File</h1>
@@ -144,11 +152,11 @@ File System Quick Example</option>
 <option value="FileTransfer_details">      - Details</option>
 <option value="FileTransfer_supported_platforms">      - Supported Platforms</option>
 <option value="FileTransfer_upload">      - upload</option>
+<option value="FileTransfer_ios_quirks">      - iOS Quirks</option>
 <option value="FileTransfer_download">      - download</option>
 <option value="FileUploadOptions">FileUploadOptions</option>
 <option value="FileUploadOptions_properties">      - Properties</option>
 <option value="FileUploadOptions_description">      - Description</option>
-<option value="FileUploadOptions_ios_quirk">      - iOS Quirk</option>
 <option value="FileUploadOptions_wp7_quirk">      - WP7 Quirk</option>
 <option value="FileUploadResult">FileUploadResult</option>
 <option value="FileUploadResult_properties">      - Properties</option>
@@ -202,8 +210,11 @@ File System Quick Example</option>
 <h1>Guides</h1>
 <ul>
 <li><a href="guide_getting-started_index.md.html#Getting%20Started%20Guides">Getting Started Guides</a></li>
+<li><a href="guide_command-line_index.md.html#Command-Line%20Usage">Command-Line Usage</a></li>
 <li><a href="guide_upgrading_index.md.html#Upgrading%20Guides">Upgrading Guides</a></li>
+<li><a href="guide_plugin-development_index.md.html#Plugin%20Development%20Guide">Plugin Development Guide</a></li>
 <li><a href="guide_whitelist_index.md.html#Domain%20Whitelist%20Guide">Domain Whitelist Guide</a></li>
+<li><a href="guide_cordova-webview_index.md.html#Embedding%20WebView">Embedding WebView</a></li>
 <li><a href="_index.html">Keyword Index</a></li>
 </ul>
 </div>
@@ -497,7 +508,7 @@ entry.file(win, fail);
   &lt;head&gt;
     &lt;title&gt;<a href="cordova_file_file.md.html#FileReader">FileReader</a> Example&lt;/title&gt;
 
-    &lt;script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" charset="utf-8"&gt;
 
     // Wait for Cordova to load
@@ -734,7 +745,7 @@ entry.createWriter(win, fail);
   &lt;head&gt;
     &lt;title&gt;<a href="cordova_file_file.md.html#FileWriter">FileWriter</a> Example&lt;/title&gt;
 
-    &lt;script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" charset="utf-8"&gt;
 
     // Wait for Cordova to load
@@ -840,7 +851,7 @@ window.requestFileSystem(<a href="cordova_file_file.md.html#LocalFileSystem">Loc
   &lt;head&gt;
     &lt;title&gt;<a href="cordova_file_file.md.html#File">File</a> System Example&lt;/title&gt;
 
-    &lt;script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" charset="utf-8"&gt;
 
     // Wait for Cordova to load
@@ -1778,7 +1789,7 @@ It is also possible to download a file from remote and save it on the device (on
 <li>
 <strong>filePath</strong> - Full path of the file on the device</li>
 <li>
-<strong>server</strong> - URL of the server to receive the file</li>
+<strong>server</strong> - URL of the server to receive the file (must already be encoded using encodeURI())</li>
 <li>
 <strong>successCallback</strong> - A callback that is called with a <a href="cordova_file_file.md.html#Metadata">Metadata</a> object. <em>(Function)</em>
 </li>
@@ -1816,7 +1827,7 @@ params.value2 = "param";
 options.params = params;
 
 var ft = new <a href="cordova_file_file.md.html#FileTransfer">FileTransfer</a>();
-ft.upload(fileURI, "http://some.server.com/upload.php", win, fail, options);
+ft.upload(fileURI, encodeURI("http://some.server.com/upload.php"), win, fail, options);
 </code></pre>
 
 <p><strong>Full Example</strong></p>
@@ -1826,7 +1837,7 @@ ft.upload(fileURI, "http://some.server.com/upload.php", win, fail, options);
 &lt;head&gt;
     &lt;title&gt;<a href="cordova_file_file.md.html#File">File</a> Transfer Example&lt;/title&gt;
 
-    &lt;script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" charset="utf-8"&gt;
 
         // Wait for Cordova to load
@@ -1860,7 +1871,7 @@ ft.upload(fileURI, "http://some.server.com/upload.php", win, fail, options);
             options.params = params;
 
             var ft = new <a href="cordova_file_file.md.html#FileTransfer">FileTransfer</a>();
-            ft.upload(imageURI, "http://some.server.com/upload.php", win, fail, options);
+            ft.upload(imageURI, encodeURI("http://some.server.com/upload.php"), win, fail, options);
         }
 
         function win(r) {
@@ -1885,6 +1896,42 @@ ft.upload(fileURI, "http://some.server.com/upload.php", win, fail, options);
 </code></pre>
 
 <h2>
+<a name="FileTransfer_ios_quirks">iOS Quirks</a>
+</h2>
+
+<p>Setting headers for <a href="cordova_file_file.md.html#FileTransfer">FileTransfer</a> Upload:</p>
+
+<p><strong>Quick Example</strong></p>
+
+<pre class="prettyprint"><code>function win(r) {
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+}
+
+function fail(error) {
+    alert("An error has occurred: Code = " + error.code);
+    console.log("upload error source " + error.source);
+    console.log("upload error target " + error.target);
+}
+
+var uri = encodeURI("http://some.server.com/upload.php");
+
+var options = new <a href="cordova_file_file.md.html#FileUploadOptions">FileUploadOptions</a>();
+options.fileKey="file";
+options.fileName=fileURI.substr(fileURI.lastIndexOf('/')+1);
+options.mimeType="text/plain";
+
+var params = new Object();
+params.headers={'headerParam':'headerValue'};
+
+options.params = params;
+
+var ft = new <a href="cordova_file_file.md.html#FileTransfer">FileTransfer</a>();
+ft.upload(fileURI, uri, win, fail, options);
+</code></pre>
+
+<h2>
 <a name="FileTransfer_download">download</a>
 </h2>
 
@@ -1892,7 +1939,7 @@ ft.upload(fileURI, "http://some.server.com/upload.php", win, fail, options);
 
 <ul>
 <li>
-<strong>source</strong> - URL of the server to receive the file</li>
+<strong>source</strong> - URL of the server to download the file (must already be encoded using encodeURI())</li>
 <li>
 <strong>target</strong> - Full path of the file on the device</li>
 <li>
@@ -1907,9 +1954,10 @@ ft.upload(fileURI, "http://some.server.com/upload.php", win, fail, options);
 <pre class="prettyprint"><code> // !! Assumes variable url contains a valid URI to a file on a server and filePath is a valid path on the device
 
 var fileTransfer = new <a href="cordova_file_file.md.html#FileTransfer">FileTransfer</a>();
+var uri = encodeURI("http://some.server.com/download.php");
 
 fileTransfer.download(
-    url,
+    uri,
     filePath,
     function(entry) {
         console.log("download complete: " + entry.fullPath);
@@ -1949,15 +1997,6 @@ fileTransfer.download(
 
 <p>A <code><a href="cordova_file_file.md.html#FileUploadOptions">FileUploadOptions</a></code> object can be passed to the <a href="cordova_file_file.md.html#FileTransfer">FileTransfer</a> objects upload method in order to specify additional parameters to the upload script.</p>
 
-<h2>
-<a name="FileUploadOptions_ios_quirk">iOS Quirk</a>
-</h2>
-
-<ul>
-<li>
-<strong>chunkedMode:</strong>
-This parameter is ignored on iOS.</li>
-</ul>
 <h2>
 <a name="FileUploadOptions_wp7_quirk">WP7 Quirk</a>
 </h2>
@@ -2110,7 +2149,7 @@ window.resolveLocalFileSystemURI("file:///example.txt", onSuccess, onError);
   &lt;head&gt;
     &lt;title&gt;Local <a href="cordova_file_file.md.html#File">File</a> System Example&lt;/title&gt;
 
-    &lt;script type="text/javascript" charset="utf-8" src="cordova-1.8.1.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" charset="utf-8"&gt;
 
     // Wait for Cordova to load
@@ -2235,13 +2274,13 @@ entry.getMetadata(win, null);
 
 <ul>
 <li>
-<strong>code</strong> One of the predefined error codes listed below. (int)</li>
+<strong>code</strong> One of the predefined error codes listed below. (Number)</li>
 <li>
-<strong>source</strong> URI to the source (string)</li>
+<strong>source</strong> URI to the source (String)</li>
 <li>
-<strong>target</strong> URI to the target (string)</li>
+<strong>target</strong> URI to the target (String)</li>
 <li>
-<strong>http_status</strong> HTTP status code.  This attribute is only available when a response code is received from the HTTP connection. (int)</li>
+<strong>http_status</strong> HTTP status code.  This attribute is only available when a response code is received from the HTTP connection. (Number)</li>
 </ul>
 <h2>
 <a name="FileTransferError_constants">Constants</a>
@@ -2256,7 +2295,7 @@ entry.getMetadata(win, null);
 <a name="FileTransferError_description">Description</a>
 </h2>
 
-<p>The <code><a href="cordova_file_file.md.html#FileTransferError">FileTransferError</a></code> object is returned via the error callback  when an error occurs when uploading a file.</p>
+<p>The <code><a href="cordova_file_file.md.html#FileTransferError">FileTransferError</a></code> object is returned via the error callback when an error occurs when uploading or downloading a file.</p>
 
             </div>
         </div>
