@@ -2,8 +2,11 @@
 <html>
 <head>
 <title>Recognize</title>
-<script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"></script>
-<script type="text/javascript" charset="utf-8" src="barcodescanner.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/cordova-2.0.0.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/barcodescanner.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/listeners.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/activity.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/init.js"></script>
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -20,15 +23,15 @@
 <footer>
   <ul id="tab-bar">
     <li>
-        <a href="#">Map</a>
+        <a id="map" href="#">Map</a>
     </li>
 
     <li>
-        <a href="#">Scan</a>
+        <a id="scan" href="#">Scan</a>
     </li>
 
     <li>
-        <a href="#">Preferences</a>
+        <a id="prefs" href="#">Preferences</a>
     </li>
   </ul>
 </footer>
