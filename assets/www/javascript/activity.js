@@ -4,7 +4,7 @@
  *
  */
 
-function initCodeScan() {
+function initCodeScan() {  
   window.plugins.barcodeScanner.scan( function(result) {
       console.log("We got a barcode\n" +
                 "Result: " + result.text + "\n" +
@@ -16,6 +16,12 @@ function initCodeScan() {
   );
 }
 
-function initMap() {}
+function initDefault() {
+  $("#prefs-container").hide();
+  $("#default-container").show();
+}
 
-function initPreferences() {}
+function initPreferences() {
+  $("#default-container").hide();
+  $("#prefs-container").show();
+}

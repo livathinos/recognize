@@ -7,7 +7,7 @@
 function initListeners() {
   window.onload = function() {
     document.getElementById("scan").addEventListener("touchstart", initCodeScan, false);
-    document.getElementById("map").addEventListener("touchstart", initMap, false);
-    document.getElementById("prefs").addEventListener("touchstart", initPreferences, false); 
+    document.getElementById("default-link").addEventListener("touchstart", initDefault, false); 
+    document.getElementById("prefs-link").addEventListener("touchstart", initPreferences, false); 
   }
 }
