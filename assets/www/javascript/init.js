@@ -1,6 +1,19 @@
+jQuery.extend(
+  jQuery.expr[ ":" ], 
+  { reallyvisible : function (a) { return !(jQuery(a).is(':hidden') || jQuery(a).parents(':hidden').length); }}
+);
+
 $(document).ready(function() {
 	
 	var modify = 0;
+	var state;
+	
+	// By default, we'd like the homepage container
+	// to be visible and the preferences container to
+	// be invisible
+	//
+  $("#prefs-container").hide();
+  $("#default-container").show();
 	
 	// User submits his settins
 	//
@@ -11,7 +24,12 @@ $(document).ready(function() {
 	  modify = 1;
 	  
 	  // Call the database controller.
-	  databaseController(modify);
+	  databaseController(modify, state);
+	  
+	  // Show the user a success/failure message
+	  messageController(state);
+	  
+	  return false;
 	});
 	
 	
@@ -30,18 +48,19 @@ $(document).ready(function() {
     modify = 0;
 
     // Call the database controller.
-	  databaseController(modify);  
+	  databaseController(modify);
 
-    $("#prefs-container").toggle();
-    $("#default-container").toggle();
+    // Toggle the preferences and default containers
+    // (ie. switching pages)
+    //
+    togglePages("prefs");
 	});
 	
 	
 	// User navigates to the home page.
 	//
 	$("#default-link").live('tap',function() {
-    $("#default-container").toggle();
-    $("#prefs-container").toggle();
+    togglePages("home");
 	});
 	
 	

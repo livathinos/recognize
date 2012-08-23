@@ -68,7 +68,7 @@ function createTables(mydb)
 
 // Select preexisting records and feed them into the insert/update 
 // function.
-function databaseController(modify)
+function databaseController(modify, state)
 {
   
   var mydb = initDB();
@@ -90,6 +90,7 @@ function databaseController(modify)
 
   } catch(e) {
     console.log("[ERROR] =========> " + e.message);
+    state = "error";
   }
 }
 

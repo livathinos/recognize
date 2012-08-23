@@ -1260,3 +1260,25 @@ a.ui-link-inherit {
 .ui-mobile-nosupport-boxshadow .ui-focus {
 	outline-width: 2px;
 }
+
+.bs-docs-example .table, .bs-docs-example .progress, .bs-docs-example .well, .bs-docs-example .alert, .bs-docs-example .hero-unit, .bs-docs-example .pagination, .bs-docs-example .navbar, .bs-docs-example > .nav, .bs-docs-example blockquote {
+  margin-bottom: 5px;
+}
+
+.alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 20px;
+  color: #C09853;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #FCF8E3;
+  border: 1px solid #FBEED5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #468847;
+  background-color: #DFF0D8;
+  border-color: #D6E9C6;
+}

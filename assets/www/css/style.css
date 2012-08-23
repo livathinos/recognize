@@ -10,9 +10,8 @@
    2. Typography
    3. UI compoments
    4. Default container
-   5. Map container
-   6. Scan container
-   7. Preferences container
+   5. Scan container
+   6. Preferences container
    
    ===============================================
 */
@@ -28,3 +27,10 @@
 #prefs-container {
 	display: none;
 }
+
+
+/* ===============================================
+   				3. UI Components 
+   ===============================================
+*/
+.alert { display: none; }
