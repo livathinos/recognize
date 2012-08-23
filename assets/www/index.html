@@ -13,33 +13,10 @@
 <script type="text/javascript" charset="utf-8" src="javascript/jquery.mobile-1.1.1.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="javascript/barcodescanner.js"></script>
 <script type="text/javascript" charset="utf-8" src="javascript/database.js"></script>
-<script type="text/javascript" charset="utf-8" src="javascript/listeners.js"></script>
 <script type="text/javascript" charset="utf-8" src="javascript/activity.js"></script>
 <script type="text/javascript" charset="utf-8" src="javascript/init.js"></script>
-<script type="text/javascript" charset="utf-8">
-$(document).ready(function() {
-	localInit();
-	console.log("============> WHAT THE FUCK!");
-	
-	$("#settings").submit(function() {
-	  var name = "Yes";
-      var intensity = "5";
-	  insertIntoDataBase();
-	});
-	
-	$("#prefs-link").click(function() {
-    $("#default-container").hide();
-    $("#prefs-container").show();
-	});
-	
-	$("#default-link").click(function() {
-    $("#default-container").show();
-    $("#prefs-container").hide();	  
-	});
-	
-});
-</script>
 </head>
+
 <body>
 		<div data-role="page" data-theme="a">
 			<div data-role="header" data-position="inline">

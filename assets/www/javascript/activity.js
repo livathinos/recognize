@@ -19,13 +19,3 @@ function initCodeScan() {
       }
   );
 }
-
-function initDefault() {
-  $("#prefs-container").hide();
-  $("#default-container").show();
-}
-
-function initPreferences() {
-  $("#default-container").hide();
-  $("#prefs-container").show();
-}

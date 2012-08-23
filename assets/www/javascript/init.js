@@ -1,45 +1,48 @@
-// Dean Edwards/Matthias Miller/John Resig
+$(document).ready(function() {
+	
+	var modify = 0;
+	
+	// User submits his settins
+	//
+	$("#settings").submit(function() {
+	  
+	  // Set modify to one, since we want to
+	  // insert or update our settings.
+	  modify = 1;
+	  
+	  // Call the database controller.
+	  databaseController(modify);
+	});
+	
+	
+	// User presses the 'Scan' button to scan a 
+	// QR code.
+	//
+	$("#scan").live('tap', initCodeScan);
+		
+		
+	// User navigates to the preferences page.
+	// 	
+	$("#prefs-link").live('tap', function() {
 
-function init() {
-  // quit if this function has already been called
-  if (arguments.callee.done) return;
+    // Set modify to zero, since we just want the
+    // function to select our older settings.
+    modify = 0;
 
-  // flag this function so we don't do the same thing twice
-  arguments.callee.done = true;
+    // Call the database controller.
+	  databaseController(modify);  
 
-  // kill the timer
-  if (_timer) clearInterval(_timer);
-
-  // do stuff
-  initListeners();
-};
-
-/* for Mozilla/Opera9 */
-if (document.addEventListener) {
-  document.addEventListener("DOMContentLoaded", init, false);
-}
-
-/* for Internet Explorer */
-/*@cc_on @*/
-/*@if (@_win32)
-  document.write("<script id=__ie_onload defer src=javascript:void(0)><\/script>");
-  var script = document.getElementById("__ie_onload");
-  script.onreadystatechange = function() {
-    if (this.readyState == "complete") {
-      init(); // call the onload handler
-    }
-  };
-/*@end @*/
-
-/* for Safari */
-if (/WebKit/i.test(navigator.userAgent)) { // sniff
-  var _timer = setInterval(function() {
-    if (/loaded|complete/.test(document.readyState)) {
-      init(); // call the onload handler
-    }
-  }, 10);
-}
-
-/* for other browsers */
-window.onload = init;
-
+    $("#prefs-container").toggle();
+    $("#default-container").toggle();
+	});
+	
+	
+	// User navigates to the home page.
+	//
+	$("#default-link").live('tap',function() {
+    $("#default-container").toggle();
+    $("#prefs-container").toggle();
+	});
+	
+	
+});

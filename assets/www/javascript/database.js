@@ -9,18 +9,21 @@
 // the settings table.
 function onDeviceReady()
 {
-    initDB();
-    createTables();
+    var mydb = initDB();
+    createTables(mydb);
 }
 
 
 // Initialize the database, check for database support and versions.
 function initDB() 
 {
+  var mydb;
+  
   try {
     // check if database are supported by the browser.
     if (!window.openDatabase) { 
       console.log("[ERROR] =========> Browser doesn't support databases.");
+      return null;
     } else { 
   
       // database options
@@ -30,7 +33,8 @@ function initDB()
       var maxSize = 655367; // in bytes 
   
       // Open or create the database
-      mydb = openDatabase(shortName, version, displayName, maxSize); 
+      mydb = window.openDatabase(shortName, version, displayName, maxSize); 
+      return mydb;
     }
   } catch(e) { 
     // Error handling code goes here. 
@@ -45,12 +49,14 @@ function initDB()
 }
 
 // Create the settings table if it does not exist.
-function createTables() 
+function createTables(mydb) 
 {
   try {
     console.log("[DEBUG] =========> Create table");
 
     mydb.transaction( function(transaction) {
+      var sql = 'DROP TABLE IF EXISTS settings;';
+      transaction.executeSql(sql, [], nullDataHandler, errorHandler);
       var sqlC = 'CREATE TABLE IF NOT EXISTS settings (id INTEGER NOT NULL PRIMARY KEY, name TEXT, intensity TEXT);';
       transaction.executeSql(sqlC, [], nullDataHandler, errorHandler); 
     });
@@ -62,24 +68,56 @@ function createTables()
 
 // Select preexisting records and feed them into the insert/update 
 // function.
-function insertIntoDataBase()
+function databaseController(modify)
 {
+  
+  var mydb = initDB();
   // Check for preexisting records.
   try {
     console.log("[DEBUG] =========> Select preexisting records");
-
-    mydb.transaction( function(transaction) {
-      transaction.executeSql('SELECT * FROM settings', [], InsertValues, errorHandler);
-    });
+    
+    // Check if this is a modification call (ie. the user has pressed the submit button)
+    // and route him to the appropriate function.
+    if (modify == 1) {
+      mydb.transaction( function(transaction) {
+        transaction.executeSql('SELECT * FROM settings', [], modifySettings, errorHandler);
+      });      
+    } else {
+      mydb.transaction( function(transaction) {
+        transaction.executeSql('SELECT * FROM settings', [], returnSettings, errorHandler);
+      });
+    }
 
   } catch(e) {
     console.log("[ERROR] =========> " + e.message);
   }
 }
 
-
-InsertValues = function(transaction, results)
+returnSettings = function(transaction, results)
 {
+  var mydb = initDB();
+  var len = results.rows.length;
+  var getKey;  
+  var updateKey;
+  
+  console.log("[DEBUG] =========> INSIDE return settings.");
+  console.log("[DEBUG] =========> LENGTH " + len);
+    
+  // If there are records in the result set, populate the
+  // form fields with that information.
+  if(len != 0) {
+    for (var i = 0; i < results.rows.length; i++) {
+      document.getElementById("prefs-name").value = results.rows.item(i)['name'];
+      document.getElementById("prefs-intensity").value = results.rows.item(i)['intensity'];
+    }
+  }
+  
+}
+
+modifySettings = function(transaction, results)
+{
+  
+  var mydb = initDB();
   var len = results.rows.length;
   var getKey;  
   var updateKey = 0;
@@ -91,6 +129,7 @@ InsertValues = function(transaction, results)
   var intensity = document.getElementById("prefs-intensity").value; 
 
   if(len != 0) {
+    console.log("========> HOW MUCH IS LEN???? " + len);
     for (var i = 0; i < results.rows.length; i++) {
       getKey = results.rows.item(i).key;
       if(getKey == name) {
@@ -120,10 +159,10 @@ InsertValues = function(transaction, results)
 
   // Check if we're inserting or updating a record.
   // INSERTING
-  if(isEdit != 0 && matchkey != 0) {
+  if(isEdit == 0 && matchkey == 0) {
     try {
       mydb.transaction( function(transaction) {
-        transaction.executeSql(sqlI, [], nullDataHandler, errorHandler); 
+        transaction.executeSql(insertQuery, [], nullDataHandler, errorHandler); 
       });
     } catch(e) {
         console.log("[ERROR] =========> " + e.message);
@@ -136,7 +175,7 @@ InsertValues = function(transaction, results)
   } else {
     try {
       mydb.transaction( function(transaction) {
-        transaction.executeSql(sqlU, [], nullDataHandler, errorHandler); 
+        transaction.executeSql(updateQuery, [], nullDataHandler, errorHandler); 
       });
     } catch(e) {
       console.log("[DEBUG] =========> " + e.message);
