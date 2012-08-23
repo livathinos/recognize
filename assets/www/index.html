@@ -12,10 +12,33 @@
 <script type="text/javascript" charset="utf-8" src="javascript/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="javascript/jquery.mobile-1.1.1.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="javascript/barcodescanner.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/database.js"></script>
 <script type="text/javascript" charset="utf-8" src="javascript/listeners.js"></script>
 <script type="text/javascript" charset="utf-8" src="javascript/activity.js"></script>
 <script type="text/javascript" charset="utf-8" src="javascript/init.js"></script>
-
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+	localInit();
+	console.log("============> WHAT THE FUCK!");
+	
+	$("#settings").submit(function() {
+	  var name = "Yes";
+      var intensity = "5";
+	  insertIntoDataBase();
+	});
+	
+	$("#prefs-link").click(function() {
+    $("#default-container").hide();
+    $("#prefs-container").show();
+	});
+	
+	$("#default-link").click(function() {
+    $("#default-container").show();
+    $("#prefs-container").hide();	  
+	});
+	
+});
+</script>
 </head>
 <body>
 		<div data-role="page" data-theme="a">
@@ -40,22 +63,22 @@
 					<h2>Preferences</h2>
 					<p>Set your illumination setting preferences.</p>
 					
-					<form action="#" method="get">
+					<form id="settings" action="#" method="get">
 
 					<div data-role="fieldcontain">
 						<label for="name">Illumination profile:</label>
-						<input type="text" name="name" id="name" value=""  />
+						<input type="text" name="prefs-name" id="prefs-name" value=""  />
 					</div>
 
 					<div data-role="fieldcontain">
 						<label for="slider">How bright do you want the room to be?</label>
-					 	<input type="range" name="slider" id="slider" value="5" min="0" max="10" data-highlight="true"  />
+					 	<input type="range" name="prefs-intensity" id="prefs-intensity" value="5" min="0" max="10" data-highlight="true"  />
 					</div>
 
 					<div class="ui-body ui-body-b">
 						<fieldset class="ui-grid-a">
-							<div class="ui-block-a"><button type="submit" data-theme="d">Cancel</button></div>
-							<div class="ui-block-b"><button type="submit" data-theme="a">Submit</button></div>
+							<div class="ui-block-a"><button id="submit-prefs" type="submit" name="submit" data-theme="d">Submit</button></div>
+							<div class="ui-block-b"><button type="submit" data-theme="a">Cancel</button></div>
 					    </fieldset>
 					</div>
 				</form>
