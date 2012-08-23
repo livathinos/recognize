@@ -2,10 +2,10 @@ function messageController(state)
 {
   toast = $(".alert");
   if (state != "error") {
-    toast.append("Your preferences were successfully saved.");
+    toast.html("<strong>Success!</strong> Your preferences were successfully saved.");
     delayedFadeInOut(toast);
   } else {
-    toast.append("There was an error saving your preferences.");
+    toast.html("<strong>Error!</strong> There was an error saving your preferences.");
     delayedFadeInOut(toast);
   }
   
