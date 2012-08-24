@@ -60,7 +60,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
+            android:label="RECOGNIZE" >
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
